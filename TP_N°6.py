@@ -85,3 +85,14 @@ datos_alumnos={
 }
 
 
+def mostrar_alumno(dni,datos_alumno):
+    for alumno in datos_alumno['Alumnos']: 
+        if alumno["DNI"]==dni:
+                for dato in alumno:
+                    print(f"{dato}: {alumno[dato]}")
+    return print(f"Alumno no encontrado")
+
+dni= input("Ingrese el DNI del alumno que desee ver la informacion: ")
+mostrar_alumno(dni,datos_alumnos)
+
+
