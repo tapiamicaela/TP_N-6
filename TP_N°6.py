@@ -98,31 +98,33 @@ def mostrar_todos_alumnos(datos_alumnos):
     for alumno in datos_alumnos['Alumnos']: 
         for dato in alumno:
             print(f"{dato}: {alumno[dato]}")
-        print("--------")
+        print("-------------------------------------")
 
 
-def agregar_alumno(datos_alumnos):
+def ingresar_datos():
     nuevo_alumno={}
-    nombre=input(f"Ingrese el nombre del alumno: ")
-    nuevo_alumno['Nombre'] = nombre
-    apellido=input(f"Ingrese el apellido del alumno: ")
-    nuevo_alumno['Apellido'] = apellido
-    dni=input(f"Ingrese el DNI del alumno: ")
-    nuevo_alumno['DNI'] = dni
-    nacimiento=input(f"Ingrese la Fecha de nacimiento del alumno: ")
-    nuevo_alumno['Fecha de nacimiento'] = nacimiento
-    tutor=input(f"Ingrese el nombre del tutor: ")
-    nuevo_alumno['Tutor'] = tutor
+    nuevo_alumno['Nombre'] = input(f"Ingrese el nombre del alumno: ")
+    nuevo_alumno['Apellido'] = input(f"Ingrese el apellido del alumno: ")
+    nuevo_alumno['DNI'] = input(f"Ingrese el DNI del alumno: ")
+    nuevo_alumno['Fecha de nacimiento'] = input(f"Ingrese la Fecha de nacimiento del alumno: ")
+    nuevo_alumno['Tutor'] = input(f"Ingrese el nombre del tutor: ")
     notas_str = input("Ingrese las notas separadas por comas (ej: 10,9,8): ")
     lista=[]
     for nota in notas_str.split(','):
         lista.append(int(nota))
     nuevo_alumno["Notas"] = lista
-    faltas=int(input(f"Ingrese el numero de faltas: "))
-    nuevo_alumno['Faltas'] = faltas
-    amonestacion=int(input(f"Ingrese el numero de amonestaciones: "))
-    nuevo_alumno['Amonestaciones'] = amonestacion
+    nuevo_alumno['Faltas'] = int(input(f"Ingrese el numero de faltas: "))
+    nuevo_alumno['Amonestaciones'] = int(input(f"Ingrese el numero de amonestaciones: "))
 
+    return nuevo_alumno
+
+
+def agregar_alumno(datos_alumnos):
+    nuevo_alumno=ingresar_datos()
+    for alumno in datos_alumnos['Alumnos']:
+        if alumno["DNI"]==nuevo_alumno['DNI']:
+            print("Error: este alumno ya existe")
+            return
     datos_alumnos['Alumnos'].append(nuevo_alumno)
     print("Alumno agregado correctamente.")
 
@@ -133,15 +135,17 @@ def modificar_alumno(dni,datos_alumnos):
             print("¿Qué dato desea modificar?")
             print("1. Nombre")
             print("2. Apellido")
-            print("3. Fecha de nacimiento")
-            print("4. Tutor")
-            print("5. Notas")
-            print("6. Faltas")
-            print("7. Amonestaciones")
+            print("3. DNI")
+            print("4. Fecha de nacimiento")
+            print("5. Tutor")
+            print("6. Notas")
+            print("7. Faltas")
+            print("8. Amonestaciones")
             dato_modificar=input("¿Que dato desea modificar? ")
-            dato_modificar=dato_modificar.capitalize()
+            if dato_modificar!="DNI":
+                dato_modificar=dato_modificar.capitalize()
 
-            if dato_modificar=="Nombre" or dato_modificar=="Apellido" or dato_modificar=="Fecha de nacimiento" or dato_modificar=="Tutor":
+            if dato_modificar=="Nombre" or dato_modificar=="Apellido" or dato_modificar=="DNI" or dato_modificar=="Fecha de nacimiento" or dato_modificar=="Tutor":
                 modifica=input(f"Ingrese el nuevo {dato_modificar}: ")
                 alumno[dato_modificar]=modifica
             elif dato_modificar=="Faltas" or dato_modificar=="Amonestaciones":
@@ -155,6 +159,9 @@ def modificar_alumno(dni,datos_alumnos):
                 alumno["Notas"] =lista
             else:
                 print("Error: Opción no valida")
+            print("Dato modificado correctamente.")
+            return
+    print("Alumno no encontrado.")
 
 
 def eliminar_alumno(dni,datos_alumnos):
@@ -181,21 +188,27 @@ while True:
     operacion= int(input("Ingrese el numero correspondiente a la operacion que desee realizar: "))
     if operacion==1:
         dni= input("Ingrese el DNI del alumno que desee ver la informacion: ")
+        print("\n")
         mostrar_alumno(dni,datos_alumnos)
     elif operacion==2:
+        print("\n")
         mostrar_todos_alumnos(datos_alumnos)
     elif operacion==3:
         agregar_alumno(datos_alumnos)
+        print("\n")
         mostrar_todos_alumnos(datos_alumnos)
     elif operacion==4:
         dni= input("Ingrese el DNI del alumno que desee modificar: ")
-        modificar_alumno(dni,datos_alumnos) 
+        modificar_alumno(dni,datos_alumnos)
+        print("\n")
         mostrar_todos_alumnos(datos_alumnos)
     elif operacion==5:
         dni= input("Ingrese el DNI del alumno que desee eliminar: ")
         eliminar_alumno(dni,datos_alumnos)
+        print("\n")
         mostrar_todos_alumnos(datos_alumnos)
     elif operacion==6:
-         break
+        print("Saliendo del programa, ¡Hasta luego!") 
+        break
     else:
          print("Error: Operación no encontrada")
