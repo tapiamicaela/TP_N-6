@@ -2,4 +2,5 @@ Juan;Perez;46441023;15/07/2004;Osar Perez;[7,8,8,7];6;2
 Luis;Martinez;46229209;27/08/2006;Lucia Martinez;[6,7,9,6];4;1
 Rodrigo;Fernandez;46229118;27/01/2006;Ana Martinez;[6,8,10,6];5;4
 Micaela;Tapia;43441001;17/06/2001;Graciela Cutipa;[9,8,7];2;3
-Graciela;Cutipa;4310675;24/01/2000;Teresa Cutipa;[10,9,8];1;0
+Rodrigo;tapia;44912892;27/08/2003;Cesar Tapia;[10,7,10];1;1
+
